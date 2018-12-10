@@ -24,7 +24,7 @@ Here is an explanation of each element in the UI.
 
 	* Version number: The version of the plugin.
 
-	* Minimum QGIS version: The minimum QGIS version needed to run the plugin. Notice that the template includes QGIS3-compatible code, so the minimum version has to be greater or equal to 3.0. 
+	* Minimum QGIS version: The minimum QGIS version needed to run the plugin. 
 
 	* Author: The author of the plugin.
 
