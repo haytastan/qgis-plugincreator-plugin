@@ -9,6 +9,6 @@ __copyright__ = '(C) [year] [authorname]'
 __revision__ = '$Format:%H$'
 
 def classFactory(iface):
-    from .plugin import [pluginclassname]
+    from [pluginmodulename].plugin import [pluginclassname]
     return [pluginclassname](iface)
 

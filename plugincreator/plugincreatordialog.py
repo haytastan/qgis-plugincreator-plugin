@@ -5,10 +5,9 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QCursor, QPixmap
 from qgis.PyQt.QtWidgets import QFileDialog, QListWidgetItem, QSizePolicy, QApplication
 from qgis.gui import QgsMessageBar
-from qgis.core import Qgis 
-from plugincreator.plugincreator import createPlugin
+from plugincreator.creator import createPlugin
 
-from .selecttagsdialog import SelectTagsDialog
+from plugincreator.selecttagsdialog import SelectTagsDialog
 
 pluginPath = os.path.dirname(__file__)
 WIDGET, BASE = uic.loadUiType(os.path.join(pluginPath, 'plugincreatordialog.ui'))
@@ -109,7 +108,7 @@ class PluginCreatorDialog(BASE, WIDGET):
         self.chkAbout.setEnabled(state)
 
     def selectIcon(self):
-        filename, _ = QFileDialog.getOpenFileName(self, "Select Icon", os.path.join(os.path.dirname(__file__), "icons"))
+        filename = QFileDialog.getOpenFileName(self, "Select Icon", os.path.join(os.path.dirname(__file__), "icons"))
         if filename:
             pixmap = QPixmap(filename)
             self.labelIcon.setText("")
@@ -198,7 +197,7 @@ class PluginCreatorDialog(BASE, WIDGET):
     def _showError(self, e):
         e.widget.setStyleSheet("QLineEdit{background: yellow}")
         self.tabWidget.setCurrentIndex(e.tab)
-        self.bar.pushMessage("", e.errormessage, level=Qgis.Warning, duration=5)
+        self.bar.pushMessage("", e.errormessage, level=QgsMessageBar.WARNING, duration=5)
 
     def cancelPressed(self):
         self.close()

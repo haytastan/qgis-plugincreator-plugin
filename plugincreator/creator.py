@@ -3,7 +3,7 @@
 import os
 import shutil
 import datetime
-from qgis.core import Qgis
+from qgis.gui import QgsMessageBar
 from qgis.utils import iface
 
 def removeInvalidChars(s):
@@ -153,10 +153,10 @@ def createPlugin(pluginInfo, destFolder):
     qgiscommons = ""
     if pluginInfo["addQgisCommons"]:
         imports = '''
-from .extlibs.qgiscommons2.settings import readSettings
-from .extlibs.qgiscommons2.gui.settings import addSettingsMenu, removeSettingsMenu
-from .extlibs.qgiscommons2.gui import addAboutMenu, removeAboutMenu, addHelpMenu, removeHelpMenu
-        '''
+from %(modulename)s.extlibs.qgiscommons2.settings import readSettings
+from %(modulename)s.extlibs.qgiscommons2.gui.settings import addSettingsMenu, removeSettingsMenu
+from %(modulename)s.extlibs.qgiscommons2.gui import addAboutMenu, removeAboutMenu, addHelpMenu, removeHelpMenu
+        ''' % {"modulename": pluginModuleName}
         init += '''
         readSettings()
         '''
@@ -185,7 +185,10 @@ from .extlibs.qgiscommons2.gui import addAboutMenu, removeAboutMenu, addHelpMenu
 
     for root, dirs, files in os.walk(destFolder):
         for f in files:
-            replaceInFiles(os.path.join(root, f), toReplace)
+            try:
+                replaceInFiles(os.path.join(root, f), toReplace)
+            except:
+                pass
 
     iface.messageBar().pushMessage("Plugin Creator", "Plugin skeleton has been correctly created", 
-                                    level=Qgis.Success, duration=5)
+                                    level=QgsMessageBar.SUCCESS, duration=5)
