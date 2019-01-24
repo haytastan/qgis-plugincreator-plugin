@@ -97,10 +97,10 @@ def createPlugin(pluginInfo, destFolder):
         shutil.rmtree(os.path.join(destFolder, pluginModuleName, "_lessons"))
 
     if not pluginInfo["addTravis"]:
-        os.remove(os.path.join(destFolder, pluginModuleName, ".travis.yml"))
+        os.remove(os.path.join(destFolder, ".travis.yml"))
 
     if not pluginInfo["addDocs"]:
-        os.remove(os.path.join(destFolder, pluginModuleName, ".travis.yml"))
+        shutil.rmtree(os.path.join(destFolder, "docs"))
 
     if pluginInfo["addSettings"]:
         initGui += '''
